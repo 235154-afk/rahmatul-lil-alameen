@@ -11,7 +11,7 @@
   <!-- jQuery -->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-    <style>
+  <style>
     /* 🌙 Background with Islamic vibe */
     body {
       font-family:'Poppins',sans-serif;
@@ -179,7 +179,6 @@
 </head>
 <body>
 
-
 <!-- AUTH PAGE -->
 <div id="authPage">
   <div class="auth-container" id="loginBox">
@@ -217,14 +216,14 @@
     <button id="logoutBtn">Logout</button>
   </header>
 
-<!-- Ayah -->
+  <!-- Ayah -->
 <div class="daily-card" id="ayah-card">
   <h2>📖 Ayah of the Day</h2>
-  <div class="content">
-    <p class="arabic">إِنَّ اللَّهَ مَعَ الصَّابِرِينَ</p>
-    <p class="reference">(Surah Al-Baqarah 2:153)</p>
-    <p class="translation">Indeed, Allah is with the patient.</p>
-    <p class="urdu">بیشک اللہ صبر کرنے والوں کے ساتھ ہے۔</p>
+  <div class="content" style="display:none;">
+    <p class="arabic" id="ayah-ar"></p>
+    <p class="reference" id="ayah-ref"></p>
+    <p class="translation" id="ayah-tr"></p>
+    <p class="urdu" id="ayah-ur"></p>
     <div class="share-links"><button class="btn share-btn" data-card="ayah-card">Share</button></div>
   </div>
 </div>
@@ -232,11 +231,11 @@
 <!-- Hadith -->
 <div class="daily-card" id="hadith-card">
   <h2>📜 Hadith of the Day</h2>
-  <div class="content">
-    <p class="arabic">إِنَّمَا الْأَعْمَالُ بِالنِّيَّاتِ</p>
-    <p class="reference">(Sahih al-Bukhari)</p>
-    <p class="translation">Actions are judged by intentions.</p>
-    <p class="urdu">اعمال کا دار و مدار نیتوں پر ہے۔</p>
+  <div class="content" style="display:none;">
+    <p class="arabic" id="hadith-ar"></p>
+    <p class="reference" id="hadith-ref"></p>
+    <p class="translation" id="hadith-tr"></p>
+    <p class="urdu" id="hadith-ur"></p>
     <div class="share-links"><button class="btn share-btn" data-card="hadith-card">Share</button></div>
   </div>
 </div>
@@ -244,11 +243,11 @@
 <!-- Dua -->
 <div class="daily-card" id="dua-card">
   <h2>🤲 Dua of the Day</h2>
-  <div class="content">
-    <p class="arabic">رَبِّ زِدْنِي عِلْمًا</p>
-    <p class="reference">(Surah Ta-Ha 20:114)</p>
-    <p class="translation">My Lord, increase me in knowledge.</p>
-    <p class="urdu">اے میرے رب! میرے علم میں اضافہ فرما۔</p>
+  <div class="content" style="display:none;">
+    <p class="arabic" id="dua-ar"></p>
+    <p class="reference" id="dua-ref"></p>
+    <p class="translation" id="dua-tr"></p>
+    <p class="urdu" id="dua-ur"></p>
     <div class="share-links"><button class="btn share-btn" data-card="dua-card">Share</button></div>
   </div>
 </div>
@@ -256,8 +255,8 @@
 <!-- Quote -->
 <div class="box" id="quote-box">
   <h3>✨ Quote of the Day</h3>
-  <div class="content">
-    <p class="urdu">"حکمت وہ روشنی ہے جو دلوں کو منور کرتی ہے"</p>
+  <div class="content" style="display:none;">
+    <p class="urdu" id="quote-text"></p>
     <div class="share-links"><button class="btn share-btn" data-card="quote-box">Share</button></div>
   </div>
 </div>
@@ -265,8 +264,8 @@
 <!-- Motivation -->
 <div class="box" id="motivation-box">
   <h3>💪 Motivation</h3>
-  <div class="content">
-    <p class="urdu">ہر دن کو ایک نئے موقع کے طور پر دیکھیں — چھوٹے قدم بڑے سفر کا آغاز ہوتے ہیں۔</p>
+  <div class="content" style="display:none;">
+    <p class="urdu" id="motivation-text"></p>
     <div class="share-links"><button class="btn share-btn" data-card="motivation-box">Share</button></div>
   </div>
 </div>
@@ -274,8 +273,8 @@
 <!-- Azkaar -->
 <div class="box" id="azkaar-box">
   <h3>🕋 Azkaar</h3>
-  <div class="content">
-    <p class="urdu">سبحان الله، الحمد للہ، اللہ اکبر۔</p>
+  <div class="content" style="display:none;">
+    <p class="urdu" id="azkaar-text"></p>
     <div class="share-links"><button class="btn share-btn" data-card="azkaar-box">Share</button></div>
   </div>
 </div>
@@ -283,7 +282,8 @@
 <!-- Seerah -->
 <div class="box" id="seerah-box">
   <h3>📚 Seerah — سیرت خاتم الانبیاء محمد مصطفیٰ ﷺ</h3>
-  <div class="content urdu" id="seerah-text">
+  <div class="content urdu" id="seerah-text" style="display:none;">
+    <!-- your full seerah text already included -->
     <!-- full seerah content from user's earlier message -->
           <p>حضرت ابراہیم علیہ السلام کے بیٹے حضرت اسماعیل علیہ السلام کے ١۲ بیٹے تھے - ان کی نسل اسقدر ہوئی کے مکہ مکرمہ میں نہ سما سکی اور پورے حجاز میں پھیل گئی - ان کے ایک بیٹے قیدار کی اولاد میں عدنان ہوئے - عدنان کے بیٹے معد اور پوتے کا نام نزار تھا - نزار کے چار بیٹے تھے - ان میں سے ایک کا نام مضر تھا - مضر کی نسل سے قریش بن مالک پیدا ہوئے" یہ فہر بن مالک بھی کہلائے - قریش کی اولاد بہت ہوئی - ان کی اولاد مختلف قبیلوں میں بٹ گئی - ان کی اولاد سے قصیّ نے اقتدار حاصل کیا - قصیّ کے آگے تین بیٹے ہوئے - ان میں سے ایک عبد مناف تھے جن کی اگلی نسل میں ہاشم پیدا ہوئے -</p>
           <p>ہاشم نے مدینہ کے ایک سردار کی لڑکی سے شادی کی " ان کے یہاں ایک لڑکا پیدا ہوا " اس کا نام شیبہ رکھا گیا - یہ پیدا ہی ہوا تھا کہ ہاشم کا انتقال ہوگیا- ان کے بھائی مطلّب مکہ کے حاکم ہوئے - ہاشم کا بیٹا مدینہ منورہ میں پرورش پاتا رہا " جب مطلّب کو معلوم ہوگیا کہ وہ جوان ہوگیا ہے تو بھتیجے کو لینے کے لیے خود مدینہ گئے - اسے لیکر مکہ مکرمہ پہنچے تو لوگوں نے خیال کیا یہ نوجوان ان کا غلام ہے - مطلّب نے لوگوں کو بتایا " یہ ہاشم کا بیٹا اور میرا بھتیجا ہے " اس کے باوجود لوگوں نے اسے مطلّب کا غلام ہی کہنا شروع کردیا - اس طرح شیبہ کو عبدالمطلب کہا جانے لگا - انہیں عبدالمطلب کے یہاں ابوطالب حمزہ, عبّاس, عبداللہ, ابولہب, حارث, زبیر, ضرار, اور عبدالرحمن پیدا ہوئے- ان کے بیٹے عبداللہ سے ہمارے نبی حضرت محمد صلی اللہ علیہ و سلم پیدا ہوئے۔</p>
@@ -327,7 +327,7 @@
           <p>زمزم کی کھدائی سے پہلے عبدالمطلب نے دعا مانگی تھی کہ اے اللہ! اس کی کھدائی کو مجھ پر آسان کردے، میں اپنا ایک بیٹا تیرے راستے میں ذبح کروں گا - اب جب کہ کنواں نکل آیا تو انہیں خواب میں حکم دیا گیا - </p>
           <p>"اپنی منت پوری کرو، یعنی ایک بیٹے کو ذبح کرو -"</p>
   </div>
-  <div class="share-links content">
+  <div class="share-links content" style="display:none;">
     <button class="btn share-btn" data-card="seerah-box">Share</button>
   </div>
 </div>
@@ -335,7 +335,7 @@
 <!-- Prayer Times -->
 <div class="box" id="prayer-box">
   <h3>🕌 Prayer Timings</h3>
-  <div class="content">
+  <div class="content" style="display:none;">
     <input type="text" id="cityInput" placeholder="Enter city (e.g. Lahore)">
     <button class="btn" id="getTimesBtn">Get Prayer Times</button>
     <ul id="prayer-times"></ul>
@@ -363,92 +363,159 @@
 <script>
 let activeCardId = null;
 let prayerSchedule = {};
+let lastDate = null;
 
-$(document).ready(function(){
+// 🔹 Daily Data Sources
+const ayahs = [
+  {ar:"إِنَّ اللَّهَ مَعَ الصَّابِرِينَ",ref:"(Surah Al-Baqarah 2:153)",tr:"Indeed, Allah is with the patient.",ur:"بیشک اللہ صبر کرنے والوں کے ساتھ ہے۔"},
+  {ar:"فَاذْكُرُونِي أَذْكُرْكُمْ",ref:"(Surah Al-Baqarah 2:152)",tr:"So remember Me; I will remember you.",ur:"پس تم مجھے یاد کرو میں تمہیں یاد کروں گا۔"}
+];
+const hadiths = [
+  {ar:"إِنَّمَا الْأَعْمَالُ بِالنِّيَّاتِ",ref:"(Sahih al-Bukhari)",tr:"Actions are judged by intentions.",ur:"اعمال کا دار و مدار نیتوں پر ہے۔"},
+  {ar:"الدُّنْيَا مَتَاعٌ",ref:"(Sahih Muslim)",tr:"The world is temporary enjoyment.",ur:"دنیا ایک سامان ہے۔"}
+];
+const duas = [
+  {ar:"رَبِّ زِدْنِي عِلْمًا",ref:"(Surah Ta-Ha 20:114)",tr:"My Lord, increase me in knowledge.",ur:"اے میرے رب! میرے علم میں اضافہ فرما۔"},
+  {ar:"رَبَّنَا اغْفِرْ لَنَا",ref:"(Surah Al-A'raf 7:23)",tr:"Our Lord, forgive us.",ur:"اے ہمارے رب ہمیں بخش دے۔"}
+];
+const quotes = [
+  "حکمت وہ روشنی ہے جو دلوں کو منور کرتی ہے",
+  "محنت کے بغیر کامیابی ممکن نہیں"
+];
+const motivations = [
+  "ہر دن کو ایک نئے موقع کے طور پر دیکھیں — چھوٹے قدم بڑے سفر کا آغاز ہوتے ہیں۔",
+  "مایوسی کفر ہے، ہمیشہ امید رکھیں۔"
+];
+const azkaars = [
+  "سبحان الله، الحمد للہ، اللہ اکبر۔",
+  "لا إله إلا الله، الله أكبر"
+];
 
-  // Switch Register/Login
-  $("#toRegister").click(()=>{$("#loginBox").hide();$("#registerBox").fadeIn();});
-  $("#toLogin").click(()=>{$("#registerBox").hide();$("#loginBox").fadeIn();});
+// 🔹 Function to load daily content
+function loadDailyContent(){
+  let today = new Date().toDateString();
+  if(today === lastDate) return;
+  lastDate = today;
 
-  // Register
-  $("#registerBtn").click(function(){
-    const userData = {
-      firstName:$("#firstName").val(),
-      middleName:$("#middleName").val(),
-      lastName:$("#lastName").val(),
-      fatherName:$("#fatherName").val(),
-      age:$("#age").val(),
-      gender:$("#gender").val(),
-      phone:$("#phone").val(),
-      username:$("#regUsername").val(),
-      password:$("#regPassword").val()
-    };
-    if(!userData.username||!userData.password){alert("Username and password required!");return;}
-    localStorage.setItem("userData",JSON.stringify(userData));
-    alert("✅ Registered! Please login.");$("#registerBox").hide();$("#loginBox").fadeIn();
-  });
+  let day = new Date().getDate();
 
-  // Login
-  $("#loginBtn").click(function(){
-    const user=$("#loginUsername").val();
-    const pass=$("#loginPassword").val();
-    const stored=JSON.parse(localStorage.getItem("userData"));
-    if(stored&&stored.username===user&&stored.password===pass){
-      $("#authPage").hide();$("#mainContent").fadeIn();
-    } else {alert("❌ Invalid login");}
-  });
+  // Ayah
+  let a = ayahs[day % ayahs.length];
+  $("#ayah-ar").text(a.ar);
+  $("#ayah-ref").text(a.ref);
+  $("#ayah-tr").text(a.tr);
+  $("#ayah-ur").text(a.ur);
 
-  // Logout
-  $("#logoutBtn").click(()=>{$("#mainContent").hide();$("#authPage").fadeIn();});
+    // Hadith
+  let h = hadiths[day % hadiths.length];
+  $("#hadith-ar").text(h.ar);
+  $("#hadith-ref").text(h.ref);
+  $("#hadith-tr").text(h.tr);
+  $("#hadith-ur").text(h.ur);
 
-  // Accordion toggle
-  $(".daily-card h2,.box h3").click(function(){$(this).siblings(".content").slideToggle(400);});
+  // Dua
+  let d = duas[day % duas.length];
+  $("#dua-ar").text(d.ar);
+  $("#dua-ref").text(d.ref);
+  $("#dua-tr").text(d.tr);
+  $("#dua-ur").text(d.ur);
 
-  // Share
-  $(".share-btn").click(function(){activeCardId=$(this).data("card");$("#shareModal").fadeIn();});
-  $("#closeModal").click(()=>{$("#shareModal").fadeOut();});
-  $(".platform-btn").click(function(){
-    const baseUrl=$(this).data("url");
-    const content=$("#"+activeCardId+" .content").text().trim();
-    window.open(baseUrl+encodeURIComponent(content),"_blank");
-    $("#shareModal").fadeOut();
-  });
+  // Quote
+  $("#quote-text").text(quotes[day % quotes.length]);
 
-  // Prayer times
-  $("#getTimesBtn").click(function(){
-    const city=$("#cityInput").val().trim();
-    if(!city){alert("Enter a city name");return;}
-    const apiUrl=`https://api.aladhan.com/v1/timingsByCity?city=${encodeURIComponent(city)}&country=Pakistan&method=2`;
-    $.getJSON(apiUrl,function(resp){
-      if(resp.code===200&&resp.data&&resp.data.timings){
-        const times=resp.data.timings;
-        const prayers=["Fajr","Dhuhr","Asr","Maghrib","Isha"];
-        $("#prayer-times").empty();prayerSchedule={};
-        prayers.forEach(p=>{
-          let t=(times[p]||"--").split(" ")[0];
-          $("#prayer-times").append(`<li id="prayer-${p}">${p}: ${t}</li>`);
-          prayerSchedule[p]=t;
-        });
-      } else {$("#prayer-times").html("<li>Could not load times.</li>");}
-    });
-  });
+  // Motivation
+  $("#motivation-text").text(motivations[day % motivations.length]);
 
-  // Azan Alarm
-  setInterval(function(){
-    if(!Object.keys(prayerSchedule).length) return;
-    let now=new Date();
-    let currentTime=now.getHours().toString().padStart(2,"0")+":"+now.getMinutes().toString().padStart(2,"0");
-    Object.keys(prayerSchedule).forEach(p=>{
-      if(prayerSchedule[p]===currentTime){
-        let azan=document.getElementById("azan-audio");
-        azan.play().catch(err=>console.log("Autoplay blocked:",err));
-        $("#prayer-times li").removeClass("highlight");
-        $(`#prayer-${p}`).addClass("highlight");
-      }
-    });
-  },60000); // check every 1 min
+  // Azkaar
+  $("#azkaar-text").text(azkaars[day % azkaars.length]);
+}
+
+// 🔹 Toggle sections on heading click
+$(".daily-card h2, .box h3").click(function(){
+  $(this).siblings(".content").slideToggle();
 });
-</script>
 
-</body>
-</html>
+// 🔹 Share functionality
+$(".share-btn").click(function(){
+  activeCardId = $(this).data("card");
+  $("#shareModal").fadeIn();
+});
+$("#closeModal").click(()=>$("#shareModal").fadeOut());
+
+$(".platform-btn").click(function(){
+  if(!activeCardId) return;
+  let text = $("#"+activeCardId+" .content").text().trim();
+  let baseUrl = $(this).data("url");
+  let url = baseUrl + encodeURIComponent(text);
+  window.open(url,"_blank");
+  alert("✅ Successfully shared on " + $(this).text());
+  $("#shareModal").fadeOut();
+});
+
+// 🔹 Prayer Times (demo timings)
+$("#getTimesBtn").click(function(){
+  let city = $("#cityInput").val().trim();
+  if(!city){alert("Enter a city!");return;}
+
+  prayerSchedule = {
+    Fajr:"05:00",
+    Dhuhr:"12:30",
+    Asr:"15:45",
+    Maghrib:"18:20",
+    Isha:"20:00"
+  };
+
+  let ul = $("#prayer-times").empty();
+  for(let p in prayerSchedule){
+    $("<li>").text(p+" - "+prayerSchedule[p]).appendTo(ul);
+  }
+});
+
+// 🔹 Azan Alarm check
+setInterval(()=>{
+  let now = new Date();
+  let current = now.getHours().toString().padStart(2,"0")+":"+now.getMinutes().toString().padStart(2,"0");
+  $("#prayer-times li").removeClass("highlight");
+
+  for(let p in prayerSchedule){
+    if(prayerSchedule[p] === current){
+      $("#prayer-times li:contains("+p+")").addClass("highlight");
+      document.getElementById("azan-audio").play();
+    }
+  }
+},60000);
+
+// 🔹 Login/Register
+$("#toRegister").click(()=>{$("#loginBox").hide();$("#registerBox").show();});
+$("#toLogin").click(()=>{$("#registerBox").hide();$("#loginBox").show();});
+
+$("#registerBtn").click(function(){
+  let user = {
+    first:$("#firstName").val(),
+    middle:$("#middleName").val(),
+    last:$("#lastName").val(),
+    father:$("#fatherName").val(),
+    age:$("#age").val(),
+    gender:$("#gender").val(),
+    phone:$("#phone").val(),
+    username:$("#regUsername").val(),
+    password:$("#regPassword").val()
+  };
+  if(!user.username || !user.password){alert("Fill required fields");return;}
+  localStorage.setItem("user_"+user.username,JSON.stringify(user));
+  alert("✅ Registered! Please login.");
+  $("#toLogin").click();
+});
+
+$("#loginBtn").click(function(){
+  let u=$("#loginUsername").val(),p=$("#loginPassword").val();
+  let stored=localStorage.getItem("user_"+u);
+  if(!stored){alert("❌ User not found");return;}
+  let user=JSON.parse(stored);
+  if(user.password!==p){alert("❌ Wrong password");return;}
+  $("#authPage").hide();$("#mainContent").show();
+  loadDailyContent();
+});
+
+$("#logoutBtn").click(()=>{location.reload();});
+</script>
