@@ -226,9 +226,7 @@
   <div class="modal-content">
     <h3>Share To</h3>
     <button class="platform-btn" data-url="https://wa.me/?text=">WhatsApp</button>
-    <button class="platform-btn" data-url="https://whatsapp.com/channel/0029VbBANGq2P59nOjgyAv3H">WhatsApp Channel</button>
-    <button class="platform-btn" data-url="https://www.facebook.com/sharer/sharer.php?u=">Facebook</button>
-    <button class="platform-btn" data-url="https://www.linkedin.com/shareArticle?mini=true&url=">LinkedIn</button>
+    <button class="platform-btn" id="copyBtn">📋 Copy Text</button>
     <button id="closeModal">Close</button>
   </div>
 </div>
@@ -335,6 +333,23 @@ $(".platform-btn").click(function(){
   window.open(url,"_blank");
   alert("✅ Successfully shared on " + $(this).text());
   $("#shareModal").fadeOut();
+
+  // COPY TEXT button
+$("#copyBtn").click(function(){
+  if(!activeCardId) return;
+  // get text content inside that card’s .content
+  let text = $("#" + activeCardId + " .content").text().trim();
+  if(!text) return;
+
+  navigator.clipboard.writeText(text)
+    .then(()=> {
+      alert("Text copied to clipboard!");
+      $("#shareModal").fadeOut();
+    })
+    .catch(err=>{
+      console.error(err);
+      alert("Unable to copy text.");
+    });
 });
 
 // -----------------------------
@@ -585,4 +600,5 @@ $("#logoutBtn").click(()=>{location.reload();});
 </script>
 </body>
 </html>
+
 
