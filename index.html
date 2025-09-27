@@ -231,6 +231,7 @@
   </div>
 </div>
 
+
 <!-- Azan Audio -->
 <audio id="azan-audio" src="azan.mp3" preload="auto"></audio>
 
@@ -318,39 +319,51 @@ $(".daily-card h2, .box h3").click(function(){
   $(this).siblings(".content").slideToggle();
 });
 
-// 🔹 Share functionality (unchanged)
+// 🔹 Share functionality (fixed)
 $(".share-btn").click(function(){
-  activeCardId = $(this).data("card");
+  // set active card id from data attribute (share buttons have data-card)
+  activeCardId = $(this).data("card") || $(this).closest(".daily-card, .box").attr("id");
   $("#shareModal").fadeIn();
 });
-$("#closeModal").click(()=>$("#shareModal").fadeOut());
 
-$(".platform-btn").click(function(){
+$("#closeModal").click(() => $("#shareModal").fadeOut());
+
+// Platform share buttons: only those with data-url
+$(".platform-btn[data-url]").click(function(){
   if(!activeCardId) return;
-  let text = $("#"+activeCardId+" .content").text().trim();
-  let baseUrl = $(this).data("url");
-  let url = baseUrl + encodeURIComponent(text);
-  window.open(url,"_blank");
-  alert("✅ Successfully shared on " + $(this).text());
+  const text = $("#" + activeCardId + " .content").text().trim();
+  const baseUrl = $(this).data("url");
+  const url = baseUrl + encodeURIComponent(text);
+  window.open(url, "_blank");
+  // optional success message
+  alert("✅ Successfully opened share window for " + $(this).text());
   $("#shareModal").fadeOut();
+});
 
-  // COPY TEXT button
+// Copy text button (separate handler, not nested)
 $("#copyBtn").click(function(){
   if(!activeCardId) return;
-  // get text content inside that card’s .content
-  let text = $("#" + activeCardId + " .content").text().trim();
-  if(!text) return;
+  const text = $("#" + activeCardId + " .content").text().trim();
+  if(!text){
+    alert("Nothing to copy.");
+    return;
+  }
 
+  // navigator.clipboard works on HTTPS (Vercel will provide HTTPS)
   navigator.clipboard.writeText(text)
-    .then(()=> {
-      alert("Text copied to clipboard!");
+    .then(() => {
+      alert("📋 Text copied to clipboard!");
       $("#shareModal").fadeOut();
     })
-    .catch(err=>{
-      console.error(err);
+    .catch(err => {
+      console.error("Copy failed:", err);
       alert("Unable to copy text.");
     });
 });
+
+
+
+
 
 // -----------------------------
 // Prayer times: fetch + watch
@@ -600,5 +613,4 @@ $("#logoutBtn").click(()=>{location.reload();});
 </script>
 </body>
 </html>
-
 
