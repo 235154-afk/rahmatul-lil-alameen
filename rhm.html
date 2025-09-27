@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rahmatul Lil Alameen - Daily Ayah, Hadith & Dua</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Amiri+Quran&family=Noto+Nastaliq+Urdu&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+  <!-- jQuery -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <style>
+    /* 🌙 Background with Islamic vibe */
+    body {
+      font-family:'Poppins',sans-serif;
+      background: url('https://www.transparenttextures.com/patterns/asfalt-dark.png'), linear-gradient(135deg,#f9f9f9,#eef9f6);
+      margin:0;padding:0;color:#2c3e50;
+      background-attachment: fixed;
+    }
+
+    /* 🕌 Header */
+    header {
+      background:linear-gradient(90deg,#0f5132,#198754);
+      color:white;
+      padding:18px;
+      font-size:22px;
+      font-weight:bold;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      box-shadow:0 4px 20px rgba(0,0,0,0.2);
+      border-bottom:4px solid #d4af37; /* gold accent */
+    }
+    header img {height:50px;}
+    #logoutBtn {
+      background:#e74c3c;border:none;color:white;
+      padding:8px 15px;border-radius:8px;
+      cursor:pointer;font-size:14px;font-weight:bold;
+      transition:0.3s;
+    }
+    #logoutBtn:hover {background:#c0392b;}
+
+    /* ✨ Card Styling */
+    .daily-card,.box {
+      background:#fff;
+      border-radius:20px;
+      box-shadow:0 8px 25px rgba(0,0,0,0.12);
+      margin:20px auto;
+      padding:20px;
+      width:92%;
+      max-width:750px;
+      position: relative;
+      overflow: hidden;
+      transition:0.3s;
+    }
+    .daily-card:hover,.box:hover {
+      transform:translateY(-3px);
+      box-shadow:0 12px 28px rgba(0,0,0,0.18);
+    }
+
+    /* 🏷️ Headings */
+    .daily-card h2,.box h3 {
+      color:#0f5132;
+      margin:0;
+      text-align:center;
+      font-size:22px;
+      cursor:pointer;
+      padding:14px;
+      border-radius:12px;
+      background:linear-gradient(135deg,#ecfdf7,#e0f7f3);
+      font-weight:700;
+      position: relative;
+    }
+    .daily-card h2:hover,.box h3:hover {
+      background:linear-gradient(135deg,#198754,#16a085);
+      color:#fff;
+      box-shadow:0 4px 12px rgba(0,0,0,0.15);
+    }
+
+    /* Arabic Quranic Text */
+    .arabic {
+      font-family:'Amiri Quran',serif;
+      font-size:30px;
+      direction:rtl;
+      margin:15px 0;
+      text-align:center;
+      color:#0f5132;
+      line-height:1.8;
+      background: #f9fff9;
+      padding: 12px;
+      border-radius: 12px;
+      border: 2px dashed #198754;
+    }
+
+    /* Urdu & English Translation */
+    .reference {font-size:15px;color:#7f8c8d;margin-bottom:10px;font-style:italic;text-align:center;}
+    .translation {font-size:17px;margin:8px 0;text-align:center;color:#2c3e50;font-weight:600;}
+    .urdu {
+      font-family:'Noto Nastaliq Urdu',serif;
+      font-size:20px;
+      line-height:2;
+      direction:rtl;
+      text-align:right;
+      color:#2c3e50;
+      padding:10px;
+      background:#fafafa;
+      border-left:5px solid #16a085;
+      border-radius:8px;
+    }
+
+    /* Buttons */
+    .share-links {margin-top:15px;text-align:center;}
+    .btn {
+      padding:10px 18px;
+      border-radius:10px;
+      background:linear-gradient(45deg,#16a085,#1abc9c);
+      color:white;
+      font-size:14px;
+      font-weight:600;
+      border:none;
+      cursor:pointer;
+      transition:all 0.3s;
+    }
+    .btn:hover {
+      transform:scale(1.07);
+      box-shadow:0 4px 14px rgba(0,0,0,0.18);
+    }
+
+    /* Prayer Times */
+    #prayer-times {margin-top:15px;padding:0;list-style:none;font-size:16px;font-weight:600;}
+    #prayer-times li {
+      background:#ecfdf7;
+      margin:6px auto;
+      padding:12px;
+      border-radius:10px;
+      max-width:260px;
+      text-align:center;
+      transition:0.3s;
+      border:1px solid #16a085;
+    }
+    #prayer-times li.highlight {
+      background:#16a085;
+      color:white;
+      font-size:18px;
+      box-shadow:0 0 15px #16a085;
+    }
+
+    /* Modal */
+    #shareModal {display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.6);justify-content:center;align-items:center;z-index:1000;}
+    #shareModal .modal-content {
+      background:white;padding:25px;border-radius:16px;width:340px;text-align:center;
+      box-shadow:0 12px 28px rgba(0,0,0,0.25);
+      border-top:4px solid #16a085;
+    }
+    #shareModal h3 {margin-bottom:20px;color:#2c3e50;font-size:20px;}
+    .platform-btn {
+      display:block;width:100%;margin:8px 0;padding:12px;
+      border-radius:8px;border:none;cursor:pointer;
+      font-weight:bold;font-size:16px;
+      transition:0.3s;
+    }
+    .platform-btn:hover {opacity:0.85;}
+    #closeModal {background:#e74c3c;color:white;margin-top:15px;padding:10px;border-radius:8px;border:none;cursor:pointer;}
+
+    /* Auth Page */
+    #authPage {display:flex;align-items:center;justify-content:center;min-height:100vh;background:linear-gradient(120deg,#0f5132,#198754);padding:20px;}
+    .auth-container {background:#fff;width:100%;max-width:450px;border-radius:12px;padding:30px;box-shadow:0 10px 25px rgba(0,0,0,0.2);}
+    .auth-container h2 {text-align:center;margin-bottom:20px;color:#16a085;}
+    .auth-input {width:100%;padding:12px;border:1px solid #ccc;border-radius:8px;margin:8px 0;font-size:15px;}
+    .auth-btn {width:100%;padding:12px;background:linear-gradient(45deg,#0f5132,#198754);border:none;border-radius:8px;color:white;font-size:16px;cursor:pointer;margin-top:12px;font-weight:bold;}
+    .auth-btn:hover {opacity:0.9;}
+    .switch-link {text-align:center;margin-top:15px;color:#16a085;font-weight:600;cursor:pointer;}
+
+    /* Footer */
+    footer {text-align:center;color:#95a5a6;margin:40px 0 20px;font-size:14px;}
+  </style>
+</head>
+<body>
+
+
+<!-- AUTH PAGE -->
+<div id="authPage">
+  <div class="auth-container" id="loginBox">
+    <h2>Login</h2>
+    <input type="text" id="loginUsername" class="auth-input" placeholder="Username">
+    <input type="password" id="loginPassword" class="auth-input" placeholder="Password">
+    <button class="auth-btn" id="loginBtn">Login</button>
+    <div class="switch-link" id="toRegister">Don't have an account? Register</div>
+  </div>
+
+  <div class="auth-container" id="registerBox" style="display:none;">
+    <h2>Register</h2>
+    <input type="text" id="firstName" class="auth-input" placeholder="First Name">
+    <input type="text" id="middleName" class="auth-input" placeholder="Middle Name">
+    <input type="text" id="lastName" class="auth-input" placeholder="Last Name">
+    <input type="text" id="fatherName" class="auth-input" placeholder="Father Name">
+    <input type="number" id="age" class="auth-input" placeholder="Age">
+    <select id="gender" class="auth-input">
+      <option value="">Select Gender</option>
+      <option value="Male">Male</option>
+      <option value="Female">Female</option>
+    </select>
+    <input type="text" id="phone" class="auth-input" placeholder="Phone Number">
+    <input type="text" id="regUsername" class="auth-input" placeholder="Username">
+    <input type="password" id="regPassword" class="auth-input" placeholder="Password">
+    <button class="auth-btn" id="registerBtn">Register</button>
+    <div class="switch-link" id="toLogin">Already have an account? Login</div>
+  </div>
+</div>
+
+<!-- MAIN CONTENT -->
+<div id="mainContent" style="display:none;">
+  <header>
+    <div><img src="mylogo.jpg" alt="Logo"> 🌙 Rahmatul Lil Alameen</div>
+    <button id="logoutBtn">Logout</button>
+  </header>
+
+<!-- Ayah -->
+<div class="daily-card" id="ayah-card">
+  <h2>📖 Ayah of the Day</h2>
+  <div class="content">
+    <p class="arabic">إِنَّ اللَّهَ مَعَ الصَّابِرِينَ</p>
+    <p class="reference">(Surah Al-Baqarah 2:153)</p>
+    <p class="translation">Indeed, Allah is with the patient.</p>
+    <p class="urdu">بیشک اللہ صبر کرنے والوں کے ساتھ ہے۔</p>
+    <div class="share-links"><button class="btn share-btn" data-card="ayah-card">Share</button></div>
+  </div>
+</div>
+
+<!-- Hadith -->
+<div class="daily-card" id="hadith-card">
+  <h2>📜 Hadith of the Day</h2>
+  <div class="content">
+    <p class="arabic">إِنَّمَا الْأَعْمَالُ بِالنِّيَّاتِ</p>
+    <p class="reference">(Sahih al-Bukhari)</p>
+    <p class="translation">Actions are judged by intentions.</p>
+    <p class="urdu">اعمال کا دار و مدار نیتوں پر ہے۔</p>
+    <div class="share-links"><button class="btn share-btn" data-card="hadith-card">Share</button></div>
+  </div>
+</div>
+
+<!-- Dua -->
+<div class="daily-card" id="dua-card">
+  <h2>🤲 Dua of the Day</h2>
+  <div class="content">
+    <p class="arabic">رَبِّ زِدْنِي عِلْمًا</p>
+    <p class="reference">(Surah Ta-Ha 20:114)</p>
+    <p class="translation">My Lord, increase me in knowledge.</p>
+    <p class="urdu">اے میرے رب! میرے علم میں اضافہ فرما۔</p>
+    <div class="share-links"><button class="btn share-btn" data-card="dua-card">Share</button></div>
+  </div>
+</div>
+
+<!-- Quote -->
+<div class="box" id="quote-box">
+  <h3>✨ Quote of the Day</h3>
+  <div class="content">
+    <p class="urdu">"حکمت وہ روشنی ہے جو دلوں کو منور کرتی ہے"</p>
+    <div class="share-links"><button class="btn share-btn" data-card="quote-box">Share</button></div>
+  </div>
+</div>
+
+<!-- Motivation -->
+<div class="box" id="motivation-box">
+  <h3>💪 Motivation</h3>
+  <div class="content">
+    <p class="urdu">ہر دن کو ایک نئے موقع کے طور پر دیکھیں — چھوٹے قدم بڑے سفر کا آغاز ہوتے ہیں۔</p>
+    <div class="share-links"><button class="btn share-btn" data-card="motivation-box">Share</button></div>
+  </div>
+</div>
+
+<!-- Azkaar -->
+<div class="box" id="azkaar-box">
+  <h3>🕋 Azkaar</h3>
+  <div class="content">
+    <p class="urdu">سبحان الله، الحمد للہ، اللہ اکبر۔</p>
+    <div class="share-links"><button class="btn share-btn" data-card="azkaar-box">Share</button></div>
+  </div>
+</div>
+
+<!-- Seerah -->
+<div class="box" id="seerah-box">
+  <h3>📚 Seerah — سیرت خاتم الانبیاء محمد مصطفیٰ ﷺ</h3>
+  <div class="content urdu" id="seerah-text">
+    <!-- full seerah content from user's earlier message -->
+          <p>حضرت ابراہیم علیہ السلام کے بیٹے حضرت اسماعیل علیہ السلام کے ١۲ بیٹے تھے - ان کی نسل اسقدر ہوئی کے مکہ مکرمہ میں نہ سما سکی اور پورے حجاز میں پھیل گئی - ان کے ایک بیٹے قیدار کی اولاد میں عدنان ہوئے - عدنان کے بیٹے معد اور پوتے کا نام نزار تھا - نزار کے چار بیٹے تھے - ان میں سے ایک کا نام مضر تھا - مضر کی نسل سے قریش بن مالک پیدا ہوئے" یہ فہر بن مالک بھی کہلائے - قریش کی اولاد بہت ہوئی - ان کی اولاد مختلف قبیلوں میں بٹ گئی - ان کی اولاد سے قصیّ نے اقتدار حاصل کیا - قصیّ کے آگے تین بیٹے ہوئے - ان میں سے ایک عبد مناف تھے جن کی اگلی نسل میں ہاشم پیدا ہوئے -</p>
+          <p>ہاشم نے مدینہ کے ایک سردار کی لڑکی سے شادی کی " ان کے یہاں ایک لڑکا پیدا ہوا " اس کا نام شیبہ رکھا گیا - یہ پیدا ہی ہوا تھا کہ ہاشم کا انتقال ہوگیا- ان کے بھائی مطلّب مکہ کے حاکم ہوئے - ہاشم کا بیٹا مدینہ منورہ میں پرورش پاتا رہا " جب مطلّب کو معلوم ہوگیا کہ وہ جوان ہوگیا ہے تو بھتیجے کو لینے کے لیے خود مدینہ گئے - اسے لیکر مکہ مکرمہ پہنچے تو لوگوں نے خیال کیا یہ نوجوان ان کا غلام ہے - مطلّب نے لوگوں کو بتایا " یہ ہاشم کا بیٹا اور میرا بھتیجا ہے " اس کے باوجود لوگوں نے اسے مطلّب کا غلام ہی کہنا شروع کردیا - اس طرح شیبہ کو عبدالمطلب کہا جانے لگا - انہیں عبدالمطلب کے یہاں ابوطالب حمزہ, عبّاس, عبداللہ, ابولہب, حارث, زبیر, ضرار, اور عبدالرحمن پیدا ہوئے- ان کے بیٹے عبداللہ سے ہمارے نبی حضرت محمد صلی اللہ علیہ و سلم پیدا ہوئے۔</p>
+          <p>عبدالمطلب کے تمام بیٹوں میں حضرت عبداللہ سب سے زیادہ خوبصورت اور سب سے زیادہ پاکدامن تھے - عبدالمطلب کو خواب میں زمزم کا کنواں کھودنے کا حکم دیا گیا " یعنی حضرت اسماعیل علیہ السلام کے کنویں کو, اس کنویں کو قبیلہ جرہم کے سردار مضاض نے پاٹ دیا تھا - قبیلہ جرہم کے لوگ اس زمانہ میں مکہ کے سردار تھے " بیت اللہ کے نگراں تھے - انہوں نے بیت اللہ کی بے حرمتی شروع کردی - ان کا سردار مضاض بن عمرو تھا " وہ اچھا آدمی تھا اس نے اپنے قبیلے کو سمجھایا کہ بیت اللہ کی بے حرمتی نہ کرو مگر ان پر اثر نہ ہوا " جب مضاض نے دیکھا کہ ان پر کوئی اثر نہ ہوتا تو قوم کو اس کے حال پر چھوڑ کر وہاں سے جانے کا فیصلہ کیا- اس نے تمام مال و دولت تلواریں اور زرہیں وغیرہ خانۂ کعبہ سے نکال کر زمزم کے کنویں میں ڈالدیں اور مٹی سے اسکو پاٹ دیا - کنواں اس سے پہلے ہی خشک ہوچکا تھا-</p>
+          <p>اب اس کا نام و نشان مٹ گیا - مدتوں یہ کنواں بند پڑا رہا اس کے بعد بنو خزاعہ نے بنو جرہم کو وہاں سے مار بھگایا " بنو خزاعہ اور قصیّ کی سرداری کا زمانہ اسی حالت میں گذرا - کنواں بند رہا یہاں تک کے قصیّ کے بعد عبدالمطلب کا زمانہ آگیا" انہوں نے خواب دیکھا " خواب میں انہیں زمزم کے کنویں کی جگہ دکھائی گئی اور اس کے کھودنے کا حکم دیا گیا-</p>
+          <p>حضرت علی رضی اللہ عنہ سے روایت ہے کہ عبدالمطلب نے بتایا :- </p>
+          <p>" میں حجر اسود کے مقام پر سورہا تھا کہ میرے پاس ایک آنے والا آیا - اس نے مجھ سے کہا "طیبہ کو کھودو "</p>
+          <p>میں نے اس پوچھا "طیبہ کیا ہے؟" </p>
+          <p>مگر وہ کچھ بتائے بغیر چلاگیا - دوسری طرف رات پھر خواب میں وہی شخص آیا " کہنے لگا "برہ کو کھودو "</p>
+          <p>میں نے پوچھا "برّہ کیا ہے" وہ کچھ بتائے بغیر چلے گیا-</p>
+          <p>تیسری رات میں اپنے بستر پر سورہا تھا کہ پھر وہ شخص خواب میں آیا - اُس نے کہا " مضنونہ کھودو " </p>
+          <p>میں نے پوچھا " مضنونہ کیا ہے؟" وہ بتائے بغیر چلا گیا - </p>
+          <p>اس سے اگلی رات میں پھر بستر پر سورہا تھا کہ وہی شخص پھر آیا اور بولا "زم زم کھودو " میں نے اس سے پوچھا "زم زم کیا ہے؟ " اس بار اس نے کہا:</p>
+          <p>" زمزم وہ ہے جس کا پانی کبھی ختم نہیں ہوتا, جو حاجیوں کے بڑے بڑے مجموعوں کو سیراب کرتا ہے " </p>
+          <p>عبدالمطلب کہتے ہیں , میں نے اس سے پوچھا "یہ کنواں کس جگہ ہے؟ " اس نے بتایا - </p>
+          <p>"جہاں گندگی اور خون پڑا ہے, اور کوّا ٹھونگیں مار رہا ہے" </p>
+          <p>دوسرے دن عبدالمطلب اپنے بیٹے حارث کے ساتھ وہاں گئے - اس وقت ان کے یہاں یہی ایک لڑکا تھا - انہوں نے دیکھا وہاں گندگی اور خون پڑا تھا اور ایک کوّا ٹھونگیں مار رہا تھا, اس جگہ کے دونوں طرف بُت موجود تھے اور یہ گندگی اور خون دراصل ان بتوں پر قربان کئیے جانے والے جانوروں کا تھا, پوری نشانی مل گئی تو عبدالمطلب کدال لے آئے اور کھدائی کے لئیے تیار ہوگئے لیکن اس وقت قریش وہاں آ پہنچے -انہوں نے کہا :</p>
+          <p>" اللہ کی قسم ہم تمہیں یہاں کھدائی نہیں کرنے دیں گے, تم ہمارے ان دونوں بُتوں کے درمیاں کنواں کھودنا چاہتے ہو جہاں ہم ان کے لئیے قربانیاں کرتے ہیں - "</p>
+          <p>عبدالمطلب نے ان کی بات سن کر اپنے بیٹے حارث سے کہا : </p>
+          <p>"تم ان لوگوں کو میرے قریب نہ آنے دو, میں کھدائی کا کام کرتا رہوں گا اس لئیے کہ مجھے جس کام کا حکم دیا گیا ہے میں اس کو ضرور پورا کروں گا- "</p>
+          <p>قریش نے جب دیکھا کہ وہ باز آنے والے نہیں تو رک گئے - آخر انھوں نے کھدائی شروع کردی - جلد ہی کنویں کے آثار نظر آنے لگے - یہ دیکھ کر انہوں نے اللہ اکبر کا نعرہ لگایا اور پکار اٹھے</p>
+          <p>" یہ دیکھو یہ اسماعیل علیہ السلام کی تعمیر ہے "</p>
+          <p>جب قریش نے یہ دیکھا کہ انہوں نے کنواں تلاش کرلیا تو ان کے پاس آگئے اور کہنے لگے : </p>
+          <p>"عبدالمطلب اللہ کی قسم " یہ ہمارے باپ اسماعیل علیہ السلام کا کنواں ہے اور اس پر ہمارا بھی حق ہے" اس لئیے ہم اس میں تمہارے شریک ہوں گے -"</p>
+          <p>یہ سن کر عبدالمطلب نے کہا : </p>
+          <p>" میں تمہیں اس میں شریک نہیں کرسکتا " یہ مجھ اکیلے کا کام ہے"</p>
+          <p>اس پر قریش نے کہا : </p>
+          <p>" تب پھر اس معاملے میں ہم تم سے جھگڑا کریں گے"</p>
+          <p>عبدالمطلب بولے :</p>
+          <p>" کسی سے فیصلہ کروالو "</p>
+          <p>انہوں نے بنوسعد ابن ہزیم کی کاہنہ سے فیصلہ کرانا منظور کیا - یہ کاہنہ ملک شام کے بالائی علاقے میں رہتی تھی - آخر عبدالمطلب اور دوسرے قریش اس کی طرف روانہ ہوئے - عبدالمطلب کے ساتھ عبدمناف کے لوگوں کی ایک جماعت تھی - </p>
+          <p>جبکہ دیگر قبائل قریش کی بھی ایک ایک جماعت ساتھ تھی - اس زمانہ میں ملک حجاز اور شام کے درمیان ایک بیابان میدان تھا , وہاں کہیں پانی نہیں تھا - اس میدان میں ان کا پانی ختم ہوگیا - سب لوگ پیاس سے بے حال ہوگئے, یہاں تک کہ انہیں اپنی موت کا یقین ہوگیا - انہوں نے قریش کے دوسرے لوگوں سے پانی مانگا لیکن انہوں نے پانی دینے سے انکار کردیا - اب انہوں نےادھر ادھر پانی تلاش کرنے کا ارادہ کیا - </p>
+          <p>عبدالمطلب اٹھ کر اپنی سواری کے پاس آئے, جوں ہی ان کی سواری اٹھی, اس کے پاؤں کے نیچے سے پانی کا چشمہ ابل پڑا - انہوں نے پانی کو دیکھ کر اللہ اکبر کا نعرہ لگایا - پھر عبد المطلب سواری سے اتر آئے - سب نے خوب سیر ہوکر پانی پیا اور اپنے مشکیزے بھر لیے - اب انہوں نے قریش کی دوسری جماعت سے کہا:"آؤ تم بھی سیر ہوکر پانی پی لو -" اب وہ بھی آگے آئے اور خوب پانی پیا - پانی پینے کے بعد وہ بولے:</p>
+          <p>" اللہ کی قسم.... اے عبدالمطلب! یہ تو تمہارے حق میں فیصلہ ہوگیا - اب ہم زمزم کے بارے میں تم سے کبھی جھگڑا نہیں کریں گے - جس ذات نے تمہیں اس بیابان میں سیراب کردیا، وہی ذات تمہیں زمزم سے بھی سیراب کرے گا، اس لیے یہیں سے واپس چلو -" </p>
+          <p>اس طرح قریش نے جان لیا کہ اللہ تعالیٰ عبدالمطلب پر مہربان ہے، لہٰذا ان سے جھگڑنا بے سود ہے اور کاہنہ کے پاس جانے کا کوئی فائدہ نہیں ، چنانچہ سب لوگ واپس لوٹے - </p>
+          <p>واپس اکر عبدالمطلب نے پھر کنویں کی کھدائی شروع کی - ابھی تھوڑی سی کھدائی کی ہوگی کہ مال، دولت، تلواریں اور زرہیں نکل آئیں - اس میں سونا اور چاندی وغیرہ بھی تھی - یہ مال ودولت دیکھ کر قریش کے لوگوں کو لالچ نے آگھیرا - انہوں نے عبدالمطلب سے کہا :</p>
+          <p>"عبدالمطلب! اس میں ہمارا بھی حصہ ہے -" </p>
+          <p>ان کی بات سن کر عبدالمطلب نے کہا :</p>
+          <p>"نہیں ! اس میں تمہارا کوئی حصہ نہیں ، تمہیں انصاف کا طریقہ اختیار کرنا چاہیے - آؤ پانسو کے تیروں سے قرعہ ڈالیں -" </p>
+          <p>انہوں نے ایسا کرنا منظور کرلیا - دو تیر کعبے کے نام سے رکھے گئے، دو عبدالمطلب کے اور دو قریش کے باقی لوگوں کے نام کے.... پانسہ پھینکا گیا تو مال اور دولت کعبے کے نام نکلا، تلواریں اور زرہیں عبدالمطلب کے نام اور قریشیوں کے نام کے جو تیر تھے وہ کسی چیز پر نہ نکلے - اس طرح فیصلہ ہوگیا - عبدالمطلب نے کعبے کے دروازے کو سونے سے سجا دیا - </p>
+          <p>زمزم کی کھدائی سے پہلے عبدالمطلب نے دعا مانگی تھی کہ اے اللہ! اس کی کھدائی کو مجھ پر آسان کردے، میں اپنا ایک بیٹا تیرے راستے میں ذبح کروں گا - اب جب کہ کنواں نکل آیا تو انہیں خواب میں حکم دیا گیا - </p>
+          <p>"اپنی منت پوری کرو، یعنی ایک بیٹے کو ذبح کرو -"</p>
+  </div>
+  <div class="share-links content">
+    <button class="btn share-btn" data-card="seerah-box">Share</button>
+  </div>
+</div>
+
+<!-- Prayer Times -->
+<div class="box" id="prayer-box">
+  <h3>🕌 Prayer Timings</h3>
+  <div class="content">
+    <input type="text" id="cityInput" placeholder="Enter city (e.g. Lahore)">
+    <button class="btn" id="getTimesBtn">Get Prayer Times</button>
+    <ul id="prayer-times"></ul>
+  </div>
+</div>
+
+<footer>© Rahmatul Lil Alameen</footer>
+</div>
+
+<!-- Share Modal -->
+<div id="shareModal">
+  <div class="modal-content">
+    <h3>Share To</h3>
+    <button class="platform-btn" data-url="https://wa.me/?text=">WhatsApp</button>
+    <button class="platform-btn" data-url="https://whatsapp.com/channel/0029VbBANGq2P59nOjgyAv3H">WhatsApp Channel</button>
+    <button class="platform-btn" data-url="https://www.facebook.com/sharer/sharer.php?u=">Facebook</button>
+    <button class="platform-btn" data-url="https://www.linkedin.com/shareArticle?mini=true&url=">LinkedIn</button>
+    <button id="closeModal">Close</button>
+  </div>
+</div>
+
+<!-- Azan Audio -->
+<audio id="azan-audio" src="azan.mp3" preload="auto"></audio>
+
+<script>
+let activeCardId = null;
+let prayerSchedule = {};
+
+$(document).ready(function(){
+
+  // Switch Register/Login
+  $("#toRegister").click(()=>{$("#loginBox").hide();$("#registerBox").fadeIn();});
+  $("#toLogin").click(()=>{$("#registerBox").hide();$("#loginBox").fadeIn();});
+
+  // Register
+  $("#registerBtn").click(function(){
+    const userData = {
+      firstName:$("#firstName").val(),
+      middleName:$("#middleName").val(),
+      lastName:$("#lastName").val(),
+      fatherName:$("#fatherName").val(),
+      age:$("#age").val(),
+      gender:$("#gender").val(),
+      phone:$("#phone").val(),
+      username:$("#regUsername").val(),
+      password:$("#regPassword").val()
+    };
+    if(!userData.username||!userData.password){alert("Username and password required!");return;}
+    localStorage.setItem("userData",JSON.stringify(userData));
+    alert("✅ Registered! Please login.");$("#registerBox").hide();$("#loginBox").fadeIn();
+  });
+
+  // Login
+  $("#loginBtn").click(function(){
+    const user=$("#loginUsername").val();
+    const pass=$("#loginPassword").val();
+    const stored=JSON.parse(localStorage.getItem("userData"));
+    if(stored&&stored.username===user&&stored.password===pass){
+      $("#authPage").hide();$("#mainContent").fadeIn();
+    } else {alert("❌ Invalid login");}
+  });
+
+  // Logout
+  $("#logoutBtn").click(()=>{$("#mainContent").hide();$("#authPage").fadeIn();});
+
+  // Accordion toggle
+  $(".daily-card h2,.box h3").click(function(){$(this).siblings(".content").slideToggle(400);});
+
+  // Share
+  $(".share-btn").click(function(){activeCardId=$(this).data("card");$("#shareModal").fadeIn();});
+  $("#closeModal").click(()=>{$("#shareModal").fadeOut();});
+  $(".platform-btn").click(function(){
+    const baseUrl=$(this).data("url");
+    const content=$("#"+activeCardId+" .content").text().trim();
+    window.open(baseUrl+encodeURIComponent(content),"_blank");
+    $("#shareModal").fadeOut();
+  });
+
+  // Prayer times
+  $("#getTimesBtn").click(function(){
+    const city=$("#cityInput").val().trim();
+    if(!city){alert("Enter a city name");return;}
+    const apiUrl=`https://api.aladhan.com/v1/timingsByCity?city=${encodeURIComponent(city)}&country=Pakistan&method=2`;
+    $.getJSON(apiUrl,function(resp){
+      if(resp.code===200&&resp.data&&resp.data.timings){
+        const times=resp.data.timings;
+        const prayers=["Fajr","Dhuhr","Asr","Maghrib","Isha"];
+        $("#prayer-times").empty();prayerSchedule={};
+        prayers.forEach(p=>{
+          let t=(times[p]||"--").split(" ")[0];
+          $("#prayer-times").append(`<li id="prayer-${p}">${p}: ${t}</li>`);
+          prayerSchedule[p]=t;
+        });
+      } else {$("#prayer-times").html("<li>Could not load times.</li>");}
+    });
+  });
+
+  // Azan Alarm
+  setInterval(function(){
+    if(!Object.keys(prayerSchedule).length) return;
+    let now=new Date();
+    let currentTime=now.getHours().toString().padStart(2,"0")+":"+now.getMinutes().toString().padStart(2,"0");
+    Object.keys(prayerSchedule).forEach(p=>{
+      if(prayerSchedule[p]===currentTime){
+        let azan=document.getElementById("azan-audio");
+        azan.play().catch(err=>console.log("Autoplay blocked:",err));
+        $("#prayer-times li").removeClass("highlight");
+        $(`#prayer-${p}`).addClass("highlight");
+      }
+    });
+  },60000); // check every 1 min
+});
+</script>
+
+</body>
+</html>
